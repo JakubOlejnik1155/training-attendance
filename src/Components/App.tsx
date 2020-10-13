@@ -1,20 +1,20 @@
 import React from 'react';
-import { Store as ContextStore } from './Store'; 
+import { Switch, Route } from 'react-router-dom';
+import WelcomeSection from './Routes/WelcomeSection';
 
 const App = () => {
 
-  const {store, setStore} = React.useContext(ContextStore)
-
+  const routes = (
+    <Switch>
+      <Route path="/" exact> <WelcomeSection /></Route>
+      <Route path="/logn" exact> logowanie</Route>
+      <Route path="/register" exact> rejestracja</Route>
+    </Switch>
+  )
   return (
-    <div className="App">
-      hello
-      {store.isDarkMode ? "tak" : "nie"}
-      <button onClick={()=>{
-        setStore({...StaticRange, isDarkMode: !store.isDarkMode})
-      }}>
-        zmien
-      </button>
-    </div>
+    <>
+      {routes}
+    </>
   );
 }
 

@@ -12,9 +12,9 @@ import { StoreProvider } from './Components/Store';
 ReactDOM.render(
   <React.StrictMode> 
     <Router  basename={process.env.PUBLIC_URL}>
-        <StoreProvider>
-        <App />
-        </StoreProvider>
+          <StoreProvider>
+          <App />
+          </StoreProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

@@ -8,7 +8,7 @@ export const StoreProvider = ({children}) => {
     const [store, setStore] = React.useState({
         isUserLogged: false,
         userData: null,
-        isDarkMode: false,
+        isDarkMode: false, 
     });
     return (
         <Store.Provider value={{store, setStore}}>
