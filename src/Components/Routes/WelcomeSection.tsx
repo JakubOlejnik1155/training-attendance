@@ -25,11 +25,17 @@ const Main = styled.main`
 const H1 = styled.h1`
     font-size: 4.5rem;
     font-family: 'Lobster', cursive;
+    @media(max-width: 780px){
+        font-size: 2.9rem;
+    }
 `;
 const H2 = styled.h2`
     font-size: 3rem;
     font-family: 'Poppins';
     font-weight: 100;
+    @media(max-width: 780px){
+        font-size: 2rem;
+    }
 `;
 const WelcomeContainer = styled.div`
     display: flex;
@@ -51,6 +57,11 @@ const WelcomeContainer = styled.div`
         width: 1550px;
         height: 1300px;
         box-shadow: 5px 5px 50px ${theme.dark};
+    }
+    @media(max-width: 780px){
+        left: 50%;
+        transform: translate(-50%, -70%);
+        background-color: ${props => props.theme.isDarkMode ? theme.darkA : theme.lightBlueA};
     }
 `;
 const Copy =styled.h4`
@@ -78,6 +89,9 @@ const Button = styled.button`
         cursor:pointer;
         box-shadow: 0px 0px 10px ${props => props.theme.isDarkMode ? theme.lightBlue : theme.dark};
     }
+    @media(max-width: 780px){
+        margin-top: 20px;
+    }
 `;
 const ContentContainer = styled.div`
     position: absolute;
@@ -91,6 +105,11 @@ const ContentContainer = styled.div`
         height: 1300px;
         box-shadow: 5px 5px 50px ${theme.dark};
 
+    }
+    @media(max-width: 780px){
+        left: 50%;
+        top: 50px;
+        transform: translate(-50%, 0);
     }
 `;
 
