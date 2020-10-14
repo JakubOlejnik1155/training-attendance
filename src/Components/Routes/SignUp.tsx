@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../static/theme';
+import { Store } from '../Store';
 
 
 const Container = styled.main`
@@ -49,10 +50,13 @@ const GoToLogIn = styled.div`
 
 
 const Register = () => {
+    const {signup} = React.useContext(Store);
     const [state,  setState] = React.useState({
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        error: '',
+        loading: false,
     })
     const onChangeHandler = (e: any) => {
         if(e.target.id === "email") 
@@ -62,10 +66,23 @@ const Register = () => {
         if(e.target.id === "password2") 
             setState({...state, password2: e.target.value})
     }
+    const signUpHandler = async () =>{
+        const {email, password, password2} = state;
+        if(password !== password2 && password !== '') return setState({...state, error: 'passwords do not match'});
+        if(email === '') return setState({...state, error: 'Enter email'});
+        try{
+            setState({...state, error: '', loading: true});
+            await  signup(state.email, state.password)
+        }catch{
+            setState({...state, error: 'Failed to create an account'});
+        }
+        setState({...state, loading: false});
+    }
     return ( 
         <Container>
             <RegisterForm>
                 <H1>Sign Up</H1>
+                    {state.error && <Alert variant="danger" className="w-100">{state.error}</Alert>}
                     <Label htmlFor="email">Email</Label>
                     <InputGroup className="mb-3">
                         <FormControl
@@ -91,14 +108,18 @@ const Register = () => {
                     <InputGroup className="mb-3">
                         <FormControl
                             id="password2"
-                            type="password2"
+                            type="password"
                             value={state.password2}
                             onChange={onChangeHandler}
                             aria-label="password2"
-                            aria-describedby="password "
+                            aria-describedby="password"
                         />
                     </InputGroup>
-                    <Button className="mt-1 mb-1 w-50">Sign Up</Button>
+                    <Button 
+                        disabled={state.loading}
+                        className="mt-1 mb-1 w-50"
+                        onClick={signUpHandler}
+                    >Sign Up</Button>
             </RegisterForm>
             <GoToLogIn>
                Already have an account? <Link to="/login">Log In</Link>
