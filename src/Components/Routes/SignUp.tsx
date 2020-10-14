@@ -92,7 +92,7 @@ const Register = () => {
         if(e.target.id === "password") {
             if(state.password.length > 5 ){
                 e.target.style.border = '2px solid limegreen';
-                setState({...state, password: e.target.value})
+                setState({...state, password: e.target.value, passwordMessage: ''})
             }else if(state.password.length === 1){
                 e.target.style.border = '1px solid #ced4da';
                 setState({...state, password: e.target.value})
@@ -107,7 +107,7 @@ const Register = () => {
         if(e.target.id === "password2") {
             if(state.password2.length > 5 && e.target.value === state.password){
                 e.target.style.border = '2px solid limegreen';
-                setState({...state, password2: e.target.value})
+                setState({...state, password2: e.target.value, password2Message: ''})
             }else if(e.target.value.length === 0){
                 e.target.style.border = '1px solid #ced4da';
                 setState({...state, password2: e.target.value})
