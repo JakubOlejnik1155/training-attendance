@@ -6,6 +6,7 @@ import './styles/index.css';
 import App from './Components/App';
 import * as serviceWorker from './other/serviceWorker';
 import { StoreProvider } from './Components/Store';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
