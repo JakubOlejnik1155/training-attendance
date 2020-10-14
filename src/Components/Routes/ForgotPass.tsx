@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../static/theme';
 import { Store } from '../Store';
@@ -53,7 +53,8 @@ const GoToLogIn = styled.div`
 
 
 const Register = () => {
-    const {resetPass} = React.useContext(Store);
+    const {resetPass, store} = React.useContext(Store);
+    const history = useHistory();
     const [state,  setState] = React.useState({
         email: '',
         error: '',
@@ -74,6 +75,11 @@ const Register = () => {
             return setState({...state, error: 'Failed to Reset Pass'});
         }
     }
+    React.useEffect(()=>{
+        if(store.userData)
+            history.push('/dashboard');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return ( 
         <Container>
             <RestorePasswordForm>

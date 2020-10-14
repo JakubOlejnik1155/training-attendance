@@ -55,7 +55,8 @@ const GoToSignUp = styled.div`
 
 
 const Login = () => {
-    const {login} = React.useContext(Store);
+
+    const {login, store} = React.useContext(Store);
     const history = useHistory();
     const [state,  setState] = React.useState({
         email: '',
@@ -82,7 +83,11 @@ const Login = () => {
             return setState({...state, error: 'Failed to Log In'});
         }
     }
-    //TODO: automaticly login where on login page and userData exists
+    React.useEffect(()=>{
+        if(store.userData)
+            history.push('/dashboard');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return ( 
         <Container>
             <LoginForm>

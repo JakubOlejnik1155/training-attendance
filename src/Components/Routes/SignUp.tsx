@@ -59,7 +59,7 @@ const GoToLogIn = styled.div`
 
 
 const Register = () => {
-    const {signup} = React.useContext(Store);
+    const {signup, store} = React.useContext(Store);
     const history = useHistory();
     const [state,  setState] = React.useState({
         email: '',
@@ -88,6 +88,11 @@ const Register = () => {
             return setState({...state, error: 'Failed to create an account'});
         }
     }
+    React.useEffect(()=>{
+        if(store.userData)
+            history.push('/dashboard');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     //TODO: add min 6 caracters lenght password validation
     return ( 
         <Container>
