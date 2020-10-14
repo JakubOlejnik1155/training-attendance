@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../static/theme';
+import { Store } from '../Store';
 
 
 const Container = styled.main`
@@ -12,7 +13,8 @@ const Container = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${theme.lightBlue}
+    background-color: ${theme.dark};
+    color: white;
 `;
 const RestorePasswordForm = styled.div`
     padding: 70px 50px 35px 50px;
@@ -22,7 +24,8 @@ const RestorePasswordForm = styled.div`
     align-items: center;
     width: 60%;
     max-width: 500px;
-    border: 2px solid ${theme.dark};
+    border: 2px solid ${theme.blue};
+    box-shadow: 0px 0px 10px ${theme.blue};
     border-radius: 5px;
     position: relative;
     @media(max-width: 700px){
@@ -30,7 +33,7 @@ const RestorePasswordForm = styled.div`
     }
 `;
 const H1 = styled.div`
-    background-color: ${theme.lightBlue};
+    background-color:${theme.dark};
     padding: 5px 20px;
     font-size: 2.1rem;
     font-family: 'Lobster', cursive;
@@ -50,25 +53,49 @@ const GoToLogIn = styled.div`
 
 
 const Register = () => {
-    const [state,  setState] = React.useState('')
+    const {resetPass} = React.useContext(Store);
+    const [state,  setState] = React.useState({
+        email: '',
+        error: '',
+        success: '',
+        loading: false,
+    })
     const onChangeHandler = (e: any) => {
-            setState(e.target.value)
+            setState({...state, email: e.target.value})
+    }
+    const handleResetPassword = async () => {
+        const {email} = state;
+        if(email === '') return setState({...state, error: 'Enter email'});
+        try{
+            setState({...state, error: '', loading: true});
+            await  resetPass(email)
+            return setState({...state, success: 'Check your inbox for further instructions'});
+        }catch(e){
+            return setState({...state, error: 'Failed to Reset Pass'});
+        }
     }
     return ( 
         <Container>
             <RestorePasswordForm>
                 <H1>Reset Password</H1>
+                {state.error && <Alert variant="danger" className="w-100">{state.error}</Alert>}
+                {state.success && <Alert variant="success" className="w-100">{state.success}</Alert>}
                     <Label htmlFor="email">Email</Label>
                     <InputGroup className="mb-3">
                         <FormControl
                             id="email"
-                            value={state}
+                            value={state.email}
                             onChange={onChangeHandler}
                             aria-label="email"
                             aria-describedby="login email"
                         />
                     </InputGroup>
-                    <Button className="mt-1 mb-1 w-80">Reset Password</Button>
+                    <Button 
+                        className="mt-1 mb-1 w-80"
+                        onClick={handleResetPassword}
+                    >
+                        Reset Password
+                    </Button>
                     <Link to="/login" className="mt-4" >Log In</Link>
             </RestorePasswordForm>
             <GoToLogIn>

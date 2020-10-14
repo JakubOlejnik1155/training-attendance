@@ -16,7 +16,6 @@ const Main = styled.main`
     min-height: 100vh;
     width: 100%;
     position: relative;
-    // background-image: url(${image});
     background-position: center;
     background-size: cover;
     overflow: hidden;

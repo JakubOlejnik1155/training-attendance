@@ -5,11 +5,13 @@ import Login from './Routes/Login';
 import Register from './Routes/SignUp';
 import WelcomeSection from './Routes/WelcomeSection';
 import ForgotPass from './Routes/ForgotPass';
-
+import Dashboard from './Routes/Dashboard';
+import PrivateRoute from './PrivateRoute';
 const App = () => {
 
   const routes = (
     <Switch>
+      <PrivateRoute path="/dashboard" exact component={Dashboard}></PrivateRoute>
       <Route path="/" exact> <WelcomeSection /></Route>
       <Route path="/login" exact><Login /></Route>
       <Route path="/forgot-password" exact> <ForgotPass /> </Route>

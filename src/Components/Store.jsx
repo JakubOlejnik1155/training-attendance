@@ -14,6 +14,15 @@ export const StoreProvider = ({children}) => {
     const signup = (email, password) => {
         return auth.createUserWithEmailAndPassword(email,password)
     }
+    const login = (email, password) => {
+        return auth.signInWithEmailAndPassword(email, password)
+    }
+    const logout = () => {
+        return auth.signOut();
+    }
+    const resetPass = (email) => {
+        return auth.sendPasswordResetEmail(email);
+    }
     React.useEffect(()=>{
         const unsubscribe = auth.onAuthStateChanged(user => {
             setStore({...store, isUserLogged: true, userData: user,loading: false })
@@ -22,7 +31,14 @@ export const StoreProvider = ({children}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     return (
-        <Store.Provider value={{store, setStore, signup}}>
+        <Store.Provider value={{
+            store, 
+            setStore, 
+            signup, 
+            login,
+            logout,
+            resetPass
+        }}>
             {!store.loading && children}
         </Store.Provider>
     )

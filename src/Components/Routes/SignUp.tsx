@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { InputGroup, FormControl, Button, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { theme } from '../../static/theme';
 import { Store } from '../Store';
@@ -13,7 +13,8 @@ const Container = styled.main`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${theme.lightBlue}
+    background-color: ${theme.dark};
+    color: white;
 `;
 const RegisterForm = styled.div`
     padding: 70px 50px 35px 50px;
@@ -23,7 +24,8 @@ const RegisterForm = styled.div`
     align-items: center;
     width: 60%;
     max-width: 500px;
-    border: 2px solid ${theme.dark};
+    border: 2px solid ${theme.blue};
+    box-shadow: 0px 0px 10px ${theme.blue};
     border-radius: 5px;
     position: relative;
     @media(max-width: 700px){
@@ -31,7 +33,7 @@ const RegisterForm = styled.div`
     }
 `;
 const H1 = styled.div`
-    background-color: ${theme.lightBlue};
+    background-color: ${theme.dark};
     padding: 5px 20px;
     font-size: 3rem;
     font-family: 'Lobster', cursive;
@@ -39,6 +41,13 @@ const H1 = styled.div`
     top: 0;
     left: 50%;
     transform: translate( -50% , -60%);
+    width: 200px;
+    text-align: center;
+    @media(max-width: 365px){
+        width: 200px;
+        text-align: center;
+        font-size: 2.7rem;
+    }
 `;
 const Label = styled.label`
     margin-right: auto;
@@ -51,6 +60,7 @@ const GoToLogIn = styled.div`
 
 const Register = () => {
     const {signup} = React.useContext(Store);
+    const history = useHistory();
     const [state,  setState] = React.useState({
         email: '',
         password: '',
@@ -73,11 +83,12 @@ const Register = () => {
         try{
             setState({...state, error: '', loading: true});
             await  signup(state.email, state.password)
+            history.push('/dashboard');
         }catch{
-            setState({...state, error: 'Failed to create an account'});
+            return setState({...state, error: 'Failed to create an account'});
         }
-        setState({...state, loading: false});
     }
+    //TODO: add min 6 caracters lenght password validation
     return ( 
         <Container>
             <RegisterForm>
