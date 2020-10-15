@@ -11,13 +11,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 ReactDOM.render(
-  <React.StrictMode> 
+  // <React.StrictMode> 
     <Router  basename={process.env.PUBLIC_URL}>
           <StoreProvider>
           <App />
           </StoreProvider>
-    </Router>
-  </React.StrictMode>,
+    </Router>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
