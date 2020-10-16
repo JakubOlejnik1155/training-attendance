@@ -174,7 +174,7 @@ const Register = () => {
                             aria-describedby="password"
                         />
                     </InputGroup>
-                    <Button 
+                    <Button
                         disabled={state.loading}
                         className="mt-1 mb-1 w-50"
                         onClick={signUpHandler}
@@ -186,5 +186,5 @@ const Register = () => {
         </Container>
       );
 }
- 
-export default Register; 
+
+export default Register;

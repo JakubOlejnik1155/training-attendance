@@ -6,7 +6,7 @@ import Register from './Routes/SignUp';
 import WelcomeSection from './Routes/WelcomeSection';
 import ForgotPass from './Routes/ForgotPass';
 import Dashboard from './Routes/Dashboard';
-import PrivateRoute from './PrivateRoute';
+import PrivateRoute from './Routes/Components/PrivateRoute';
 const App = () => {
 
   const routes = (
@@ -19,10 +19,10 @@ const App = () => {
     </Switch>
   )
   return (
-    <> 
+    <>
       {routes}
     </>
-  ); 
+  );
 }
- 
+
 export default App;

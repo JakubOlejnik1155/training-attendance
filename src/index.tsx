@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 
 import './styles/index.css';
-import App from './Components/App';
+import App from './App/App';
 import * as serviceWorker from './other/serviceWorker';
-import { StoreProvider } from './Components/Store';
+import { StoreProvider } from './App/Store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
 ReactDOM.render(
-  // <React.StrictMode> 
+  // <React.StrictMode>
     <Router  basename={process.env.PUBLIC_URL}>
           <StoreProvider>
           <App />
@@ -22,4 +22,3 @@ ReactDOM.render(
 );
 
 serviceWorker.register();
- 
