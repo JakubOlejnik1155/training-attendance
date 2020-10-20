@@ -12,3 +12,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.link:hover{
+  transition: all .5s linear;
+  background-color: rgb(0,123,255) !important;
+  border-radius: 5px;
+}
