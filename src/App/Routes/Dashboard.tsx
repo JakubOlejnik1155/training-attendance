@@ -6,17 +6,16 @@ import NavTemplate from './Components/NavTemplate';
 
 
 const Container = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 80%;
     max-width: 600px;
+    padding: 20px;
+    border-radius: 5px;
     height: 20%;
-    background-color: ${theme.dark};
-    color: red;
+    background-color: ${theme.darkTrans};
+    color: white;
     z-index: 999;
-    box-shadow: 0 0 10px ${theme.dark};
+    border: 1px solid ${theme.blue};
+    box-shadow: 0 0 10px ${theme.blue};
 `;
 
 

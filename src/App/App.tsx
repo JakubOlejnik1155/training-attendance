@@ -7,11 +7,15 @@ import WelcomeSection from './Routes/WelcomeSection';
 import ForgotPass from './Routes/ForgotPass';
 import Dashboard from './Routes/Dashboard';
 import PrivateRoute from './Routes/Components/PrivateRoute';
+import Competitors from './Routes/Components/Competitors';
+
+
 const App = () => {
 
   const routes = (
     <Switch>
       <PrivateRoute path="/dashboard" exact component={Dashboard}></PrivateRoute>
+      <PrivateRoute path="/competitors" exact component={Competitors}></PrivateRoute>
       <Route path="/" exact> <WelcomeSection /></Route>
       <Route path="/login" exact><Login /></Route>
       <Route path="/forgot-password" exact> <ForgotPass /> </Route>

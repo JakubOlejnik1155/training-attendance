@@ -15,13 +15,13 @@ import image5 from '../../../images/tenis.jpg';
 const backgroundArray = [image, image1, image2, image3, image4, image5];
 const Container = styled.div`
     width: 100%;
-    max-height: 100vh;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
     background-color: ${theme.dark};
 `;
 const Imageback = styled.div`
     filter: blur(5px);
+    position:absolute;
     width: 100%;
     height: 100%;
     background-position: center;
@@ -30,17 +30,13 @@ const Imageback = styled.div`
     box-shadow: inset 0 0 100px #000;
 `;
 
-export interface NavTemplateProps {
-    children: any
-}
-
-const NavTemplate: React.SFC<NavTemplateProps> = ({children}) => {
+const NavTemplate = ({children}) => {
     const { store, logout } = React.useContext(Store)
     const [state, setState] = React.useState({
         error: '',
     });
     const history = useHistory();
-    const background: any = React.createRef();
+    const background = React.createRef();
 
     React.useEffect(() => {
         background.current.style.backgroundImage = `url(${backgroundArray[Math.floor(Math.random() * (+6 - 0)) + 0]})`;

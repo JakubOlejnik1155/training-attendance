@@ -5,5 +5,6 @@ export const theme = {
     lightA: "rgba(255, 255, 255, .7)",
     lightBlueA: "rgba(240,242,245, .7)",
     dark: 'rgb(32,40,51)',
+    darkTrans: 'rgba(32,40,51, .95)',
     blue: 'rgb(0,123,255)',
 }
