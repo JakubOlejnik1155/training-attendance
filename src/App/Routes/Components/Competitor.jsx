@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom'
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import deleteIcon from '../../../images/delete.svg';
 import {theme} from '../../../static/theme';

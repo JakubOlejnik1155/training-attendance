@@ -62,7 +62,7 @@ const Competitors = () => {
     const [show, setShow] = React.useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const chaneHandler = (e:any) => {
+    const changeHandler = (e:any) => {
         if (e.target.name === "name")
             setState({ ...state, name: e.target.value })
         if (e.target.name === "surname")
@@ -111,13 +111,13 @@ const Competitors = () => {
                 </Modal.Header>
                 <Modal.Body>
                      <Form.Label>Name</Form.Label>
-                    <Form.Control className="mb-2" type='text' name="name" value={state.name} onChange={chaneHandler}/>
+                    <Form.Control className="mb-2" type='text' name="name" value={state.name} onChange={changeHandler}/>
                      <Form.Label>Surname</Form.Label>
-                    <Form.Control className="mb-2" type='text' name="surname" value={state.surname} onChange={chaneHandler}/>
+                    <Form.Control className="mb-2" type='text' name="surname" value={state.surname} onChange={changeHandler}/>
                      <Form.Label>Group</Form.Label>
-                    <Form.Control className="mb-2" type='text' name="group" value={state.group} onChange={chaneHandler}/>
+                    <Form.Control className="mb-2" type='text' name="group" value={state.group} onChange={changeHandler}/>
                     <Form.Label>Ability date</Form.Label>
-                    <Form.Control className="mb-2" type='date' name="date" value={state.date} onChange={chaneHandler}/>
+                    <Form.Control className="mb-2" type='date' name="date" value={state.date} onChange={changeHandler}/>
                  </Modal.Body>
                 <Modal.Footer>
                     <Button variant="warning" onClick={handleClose}>
