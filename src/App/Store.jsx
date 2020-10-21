@@ -8,8 +8,12 @@ export const StoreProvider = ({children}) => {
     const [store, setStore] = React.useState({
         isUserLogged: false,
         userData: null,
-        isDarkMode: false, 
+        isDarkMode: false,
         loading: true,
+        arrays: {
+            trainings: null,
+            competitors: null,
+        }
     });
     const signup = (email, password) => {
         return auth.createUserWithEmailAndPassword(email,password)
@@ -32,9 +36,9 @@ export const StoreProvider = ({children}) => {
     },[])
     return (
         <Store.Provider value={{
-            store, 
-            setStore, 
-            signup, 
+            store,
+            setStore,
+            signup,
             login,
             logout,
             resetPass
@@ -42,4 +46,4 @@ export const StoreProvider = ({children}) => {
             {!store.loading && children}
         </Store.Provider>
     )
-} 
+}
