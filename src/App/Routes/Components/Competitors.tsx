@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { theme } from '../../../static/theme';
 import Competitor from './Competitor';
 import NavTemplate from './NavTemplate';
+import firebase from '../../../static/firebase';
+import { Store } from '../../Store';
 
 
 const Container = styled.div`
@@ -24,40 +26,23 @@ const H1 = styled.h1`
     font-family: 'Lobster', cursive;
     margin-bottom: 20px;
 `;
-
-//TODO: chnge this data to data fetched from firebase
-//!temporrary data
-const data = [
-    {
-        name: 'Wiktor',
-        surname: 'Chmielewski',
-        sportsAbilityDate: '11.02.2020',
-        group: 'C1',
-        attendance: 98
-    },
-    {
-        name: 'Maks',
-        surname: 'Olejniczak',
-        sportsAbilityDate: '05.09.2020',
-        group: 'C1',
-        attendance: 58
-    },
-    {
-        name: 'Michał',
-        surname: 'Śliwka',
-        sportsAbilityDate: '05.09.2020',
-        group: 'C2',
-        attendance: 33
-    }
-]
+const Error = styled.p`
+    margin: 0 auto;
+    color: red;
+`;
 
 const Competitors = () => {
 
+    const {store, setStore} = React.useContext(Store);
+    const nameRef = React.useRef<HTMLInputElement>(document.createElement("input"));
+    const surnameRef = React.useRef<HTMLInputElement>(document.createElement("input"));
+    const groupRef = React.useRef<HTMLInputElement>(document.createElement("input"));
     const [state, setState] = React.useState({
         name: '',
         surname: '',
         group: '',
-        date: ''
+        date: '',
+        error: ''
     })
     const [show, setShow] = React.useState(false);
     const handleClose = () => setShow(false);
@@ -72,13 +57,42 @@ const Competitors = () => {
         if (e.target.name === "date")
             setState({ ...state, date: e.target.value })
     }
-    //TODO: make adding competitor function
-    const AddHandler = (name: string, surname: string, group: string, date: string ) => {
-        console.log({name, surname, group, date});
+    const AddHandler = async (name: string, surname: string, group: string, date: string ) => {
+        nameRef.current.style.boxShadow = '';
+        surnameRef.current.style.boxShadow = '';
+        groupRef.current.style.boxShadow = '';
+        if (!name){ 
+            nameRef.current.style.boxShadow = '0 0 5px red';
+            return setState({...state, error: 'enter name'});
+        }
+        if (!surname) {
+            surnameRef.current.style.boxShadow = '0 0 5px red';
+            return setState({...state, error: 'enter surname'});
+        }
+        if (!group) {
+            groupRef.current.style.boxShadow = '0 0 5px red';
+            return setState({...state, error: 'enter group'});
+        }
+        const array = [...store.arrays.competitors,{name, surname, group, date, attendance: 0, startDate: new Date()}]
+        await firebase.firestore().collection('users').doc(store.arrays.docId).set({
+            uid: store.userData.uid,
+            trainings: store.arrays.trainings,
+            competitors: array
+        })
+        setStore({
+            ...store,
+            arrays: {
+                trainings: store.arrays.trainings,
+                docId: store.arrays.docId,
+                competitors: array      
+            }
+        })
         setState({name: '',
             surname: '',
             group: '',
-            date: ''});
+            date: '',
+            error: ''
+        });
         setShow(false);
     }
 
@@ -86,7 +100,7 @@ const Competitors = () => {
         <NavTemplate>
             <Container>
                 <H1>Competitors:</H1>
-                {data.map( competitor => (
+                {store.arrays.competitors.map( (competitor: { name: any; surname: any; attendance: any; }) => (
                     <Competitor
                         key={competitor.name+competitor.surname}
                         name={competitor.name}
@@ -99,7 +113,7 @@ const Competitors = () => {
                         Add New One
                     </Button>
                 </div>
-            </Container>
+            </Container> 
             <Modal
                 show={show}
                 onHide={handleClose}
@@ -111,15 +125,16 @@ const Competitors = () => {
                 </Modal.Header>
                 <Modal.Body>
                      <Form.Label>Name</Form.Label>
-                    <Form.Control className="mb-2" type='text' name="name" value={state.name} onChange={changeHandler}/>
+                    <Form.Control ref={nameRef} className="mb-2" type='text' name="name" value={state.name} onChange={changeHandler}/>
                      <Form.Label>Surname</Form.Label>
-                    <Form.Control className="mb-2" type='text' name="surname" value={state.surname} onChange={changeHandler}/>
+                    <Form.Control ref={surnameRef} className="mb-2" type='text' name="surname" value={state.surname} onChange={changeHandler}/>
                      <Form.Label>Group</Form.Label>
-                    <Form.Control className="mb-2" type='text' name="group" value={state.group} onChange={changeHandler}/>
+                    <Form.Control ref={groupRef} className="mb-2" type='text' name="group" value={state.group} onChange={changeHandler}/>
                     <Form.Label>Ability date</Form.Label>
-                    <Form.Control className="mb-2" type='date' name="date" value={state.date} onChange={changeHandler}/>
+                    <Form.Control  className="mb-2" type='date' name="date" value={state.date} onChange={changeHandler}/>
                  </Modal.Body>
                 <Modal.Footer>
+                    {state.error && <Error>{state.error}</Error>}
                     <Button variant="warning" onClick={handleClose}>
                         Cancel
                      </Button>

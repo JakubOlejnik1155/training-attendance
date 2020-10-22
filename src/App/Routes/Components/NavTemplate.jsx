@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Button, Navbar, Nav } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+
+import firebase from '../../../static/firebase';
 import { theme } from '../../../static/theme';
 import { Store } from '../../Store';
 import logo from '../../../images/yes.svg'
@@ -31,7 +33,7 @@ const Imageback = styled.div`
 `;
 
 const NavTemplate = ({children}) => {
-    const { store, logout } = React.useContext(Store)
+    const { store, logout, setStore } = React.useContext(Store)
     const [state, setState] = React.useState({
         error: '',
     });
@@ -40,6 +42,27 @@ const NavTemplate = ({children}) => {
 
     React.useEffect(() => {
         background.current.style.backgroundImage = `url(${backgroundArray[Math.floor(Math.random() * (+6 - 0)) + 0]})`;
+        const GetData  = async () => {
+            const response = await firebase.firestore().collection('users').get();
+            let flag = false;
+            response.forEach(doc => {
+                if(doc.data().uid === store.userData.uid) {
+                    flag = true;
+                    setStore({...store, arrays: {
+                        competitors: doc.data().competitors,
+                        trainings: doc.data().trainings,
+                        docId: doc.id
+                    }})
+                }
+            });
+            !flag && firebase.firestore().collection('users').add({
+                uid: store.userData.uid,
+                competitors: [],
+                trainings: []
+            })
+
+        }
+        !store.arrays.docId && GetData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

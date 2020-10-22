@@ -11,8 +11,9 @@ export const StoreProvider = ({children}) => {
         isDarkMode: false,
         loading: true,
         arrays: {
-            trainings: null,
-            competitors: null,
+            trainings: [],
+            competitors: [],
+            docId: ''
         }
     });
     const signup = (email, password) => {
