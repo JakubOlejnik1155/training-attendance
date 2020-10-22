@@ -7,6 +7,7 @@ import Competitor from './Competitor';
 import NavTemplate from './NavTemplate';
 import firebase from '../../../static/firebase';
 import { Store } from '../../Store';
+import { convertCompilerOptionsFromJson } from 'typescript';
 
 
 const Container = styled.div`
@@ -61,6 +62,9 @@ const Competitors = () => {
         nameRef.current.style.boxShadow = '';
         surnameRef.current.style.boxShadow = '';
         groupRef.current.style.boxShadow = '';
+        // is similar user allready registered in competitors
+        const flag  = store.arrays.competitors.find((_element: any) => _element.name === name );
+        if(flag) return setState({...state, error: 'this competitor already exists'})
         if (!name){ 
             nameRef.current.style.boxShadow = '0 0 5px red';
             return setState({...state, error: 'enter name'});

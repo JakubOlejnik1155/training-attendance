@@ -74,7 +74,7 @@ const Competitor = ({ name, surname, attendance}) => {
                     {attendance}%
                 </Attendance>
                 {/* //TODO: make this route for special user informations */}
-                <Link to={`/${name+surname}`}>
+                <Link to={`/competitor/${name+'-'+surname}`}>
                     <SeeMoreBtn>
                         <img src={menuIcom} alt="menu" width="30" height="30" />
                     </SeeMoreBtn>
