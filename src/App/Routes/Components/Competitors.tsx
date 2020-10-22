@@ -7,7 +7,6 @@ import Competitor from './Competitor';
 import NavTemplate from './NavTemplate';
 import firebase from '../../../static/firebase';
 import { Store } from '../../Store';
-import { convertCompilerOptionsFromJson } from 'typescript';
 
 
 const Container = styled.div`

@@ -2,9 +2,12 @@ import * as React from 'react';
 import {Link} from 'react-router-dom'
 import { Button, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
+
 import deleteIcon from '../../../images/delete.svg';
 import {theme} from '../../../static/theme';
 import menuIcom from '../../../images/menu.svg';
+import { Store } from '../../Store';
+import firebase from '../../../static/firebase';
 
 
 const Container = styled.div`
@@ -55,13 +58,26 @@ const SeeMoreBtn = styled.button`
 
 const Competitor = ({ name, surname, attendance}) => {
 
+    const {store, setStore} = React.useContext(Store);
     const [show, setShow] = React.useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    //TODO: make deleting function
-    const handleDeleting = () =>{
-        console.log({ name, surname });
+    const handleDeleting = async () =>{
+        const index = store.arrays.competitors.findIndex(element => element.name+element.surname === name+surname);
+        let array = store.arrays.competitors;
+        array.splice(index, 1);
+
+        await firebase.firestore().collection('users').doc(store.arrays.docId).set({
+            uid: store.userData.uid,
+            trainings: store.arrays.trainings,
+            competitors: array
+        })
         setShow(false);
+        setStore({...store, arrays: {
+            trainings: store.arrays.trainings,
+            docId: store.arrays.docId,
+            competitors: array
+        }})
     }
     return (
         <>
