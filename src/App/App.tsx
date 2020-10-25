@@ -8,6 +8,7 @@ import ForgotPass from './Routes/ForgotPass';
 import Dashboard from './Routes/Dashboard';
 import PrivateRoute from './Routes/Components/PrivateRoute';
 import Competitors from './Routes/Components/Competitors';
+import CompetitorData from './Routes/CompetitorData';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
     <Switch>
       <PrivateRoute path="/dashboard" exact component={Dashboard}></PrivateRoute>
       <PrivateRoute path="/competitors" exact component={Competitors}></PrivateRoute>
+      <PrivateRoute path="/competitor/:comp" component={CompetitorData}></PrivateRoute>
       <Route path="/" exact> <WelcomeSection /></Route>
       <Route path="/login" exact><Login /></Route>
       <Route path="/forgot-password" exact> <ForgotPass /> </Route>

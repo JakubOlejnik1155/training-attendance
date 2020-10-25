@@ -57,6 +57,7 @@ const Competitors = () => {
         if (e.target.name === "date")
             setState({ ...state, date: e.target.value })
     }
+    //TODO: trim data before add user
     const AddHandler = async (name: string, surname: string, group: string, date: string ) => {
         nameRef.current.style.boxShadow = '';
         surnameRef.current.style.boxShadow = '';
