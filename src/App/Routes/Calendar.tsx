@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { theme } from '../../static/theme';
 import NavTemplate from './Components/NavTemplate';
+import styled from  'styled-components';
+import {theme} from '../../static/theme';
+
 
 const Container = styled.div`
     width: 95%;
@@ -19,30 +19,14 @@ const Container = styled.div`
 
 
 
-
-interface ParamTypes {
-    comp: string | undefined
-  }
-const CompetitorData = () => {
-
-    const {comp} = useParams<ParamTypes>();
-
-    React.useEffect(()=>{
-        console.log(comp)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-
-
-
-
+const Calendar = () => {
     return (
         <NavTemplate>
             <Container>
-                here will be specific competitor info
+                Here will be your calendar
             </Container>
         </NavTemplate>
     )
 }
 
-export default CompetitorData;
+export default Calendar;
