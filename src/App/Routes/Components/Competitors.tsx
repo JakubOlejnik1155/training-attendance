@@ -57,7 +57,6 @@ const Competitors = () => {
         if (e.target.name === "date")
             setState({ ...state, date: e.target.value })
     }
-    //TODO: trim data before add user
     const AddHandler = async (name: string, surname: string, group: string, date: string ) => {
         nameRef.current.style.boxShadow = '';
         surnameRef.current.style.boxShadow = '';
@@ -88,7 +87,7 @@ const Competitors = () => {
             arrays: {
                 trainings: store.arrays.trainings,
                 docId: store.arrays.docId,
-                competitors: array      
+                competitors: array
             }
         })
         setState({name: '',
@@ -142,7 +141,7 @@ const Competitors = () => {
                     <Button variant="warning" onClick={handleClose}>
                         Cancel
                      </Button>
-                    <Button variant="success" onClick={() => AddHandler(state.name, state.surname, state.group, state.date)}>Add</Button>
+                    <Button variant="success" onClick={() => AddHandler(state.name.trim(), state.surname.trim(), state.group.trim(), state.date)}>Add</Button>
                 </Modal.Footer>
             </Modal>
 
