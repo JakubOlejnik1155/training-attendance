@@ -9,8 +9,8 @@ import Dashboard from './Routes/Dashboard';
 import PrivateRoute from './Routes/Components/PrivateRoute';
 import Competitors from './Routes/Components/Competitors';
 import CompetitorData from './Routes/CompetitorData';
-import Trainings from './Routes/trainings';
 import Calendar from './Routes/Calendar'
+import Trainings from './Routes/Trainings';
 
 const App = () => {
 

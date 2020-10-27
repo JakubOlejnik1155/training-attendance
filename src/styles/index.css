@@ -26,3 +26,18 @@ body {
     display: none !important;
   }
 }
+.checkboxContainer{
+  text-align: center;
+  margin-bottom: 5px;
+}
+.checkbox{
+  display: inline !important;
+  margin-right: 10px;
+}
+.labelForCompetitor{
+  font-size: 20px !important;
+}
+.form-check-input{
+  width: 15px !important;
+  height: 15px !important;
+}

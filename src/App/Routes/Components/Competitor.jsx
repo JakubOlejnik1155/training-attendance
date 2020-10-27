@@ -87,7 +87,7 @@ const Competitor = ({ name, surname, attendance}) => {
                     <i>{surname}</i>
                 </span>
                 <Attendance at={attendance}>
-                    {attendance}%
+                    {Math.floor(attendance)}%
                 </Attendance>
                 <Link to={`/competitor/${name+'-'+surname}`}>
                     <SeeMoreBtn>

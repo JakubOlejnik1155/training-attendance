@@ -62,7 +62,7 @@ const Competitors = () => {
         surnameRef.current.style.boxShadow = '';
         groupRef.current.style.boxShadow = '';
         // is similar user allready registered in competitors
-        const flag  = store.arrays.competitors.find((_element: any) => _element.name === name );
+        const flag  = store.arrays.competitors.find((_element: any) => _element.surname === surname && _element.name === name);
         if(flag) return setState({...state, error: 'this competitor already exists'})
         if (!name){ 
             nameRef.current.style.boxShadow = '0 0 5px red';

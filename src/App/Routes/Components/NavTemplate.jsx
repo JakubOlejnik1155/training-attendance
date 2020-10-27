@@ -100,7 +100,7 @@ const NavTemplate = ({children}) => {
                         Calendar
                 </Nav.Link>
                     <Nav.Link as={Link} to="/trainings" id="nav-dropdown" className="link ml-1 text-center text-white">
-                        Trainings
+                        Training
                 </Nav.Link>
                     <Navbar.Text className="mr-3 ml-5 d-none d-lg-block">
                         Logged in as: <i>{store.userData.email}</i>
