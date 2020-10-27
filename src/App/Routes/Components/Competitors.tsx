@@ -76,7 +76,7 @@ const Competitors = () => {
             groupRef.current.style.boxShadow = '0 0 5px red';
             return setState({...state, error: 'enter group'});
         }
-        const array = [...store.arrays.competitors,{name, surname, group, date, attendance: 0, startDate: new Date()}]
+        const array = [...store.arrays.competitors,{name, surname, group, date, attendance: 0, startDate: new Date(), phoneDad:'', phoneMom:'', email: ''}]
         await firebase.firestore().collection('users').doc(store.arrays.docId).set({
             uid: store.userData.uid,
             trainings: store.arrays.trainings,
