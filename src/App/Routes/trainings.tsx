@@ -6,6 +6,7 @@ import {theme} from '../../static/theme';
 import { Button, Form, FormControl } from 'react-bootstrap';
 import { Store } from '../Store';
 import firebase from '../../static/firebase';
+import { useHistory } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -33,16 +34,18 @@ const Label = styled.p`
 interface StateProps{
     group: string,
     groups: any,
-    competitors: any
+    competitors: any,
+    success: string
 }
 
 const Trainings = () => {
-
+    const history = useHistory();
     const {store, setStore} = React.useContext(Store);
     const [state, setState] = React.useState<StateProps>({
         group: '',
         groups: [],
-        competitors: []
+        competitors: [],
+        success: ''
     });
     const onChangeHandler = (event: { target: { id: string; value: any; }; }) => {
         if(event.target.id === 'group')
@@ -97,7 +100,10 @@ const Trainings = () => {
             competitors: newAttendancesCompetitorsArray
         })
         setStore({...store, arrays: {...store.arrays, trainings: newArray, competitors: newAttendancesCompetitorsArray}})
-
+        setState({...state, success: 'Trainig have been added'})
+        setTimeout(()=>{
+            history.push('/dashboard')
+        }, 3000)
     }
 
     React.useEffect(()=>{
@@ -156,9 +162,11 @@ const Trainings = () => {
                     ))}
                 </Form>
             
-            
+            {state.success && (
+                <p style={{color: 'greenyellow', fontSize: '18px', textAlign: 'center'}}>{state.success}</p>
+            )}
             <div className="w-100 d-flex justify-content-center align-items-center mt-4">
-                <Button variant="primary" onClick={AddTrainingHanler}>
+                <Button variant="primary" onClick={AddTrainingHanler} disabled={state.success ? true : false}>
                     Start New Trening
                 </Button>
             </div>
