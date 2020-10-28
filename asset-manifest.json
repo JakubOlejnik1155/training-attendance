@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/training-attendance/static/css/main.e8b6ea19.chunk.css",
-    "main.js": "/training-attendance/static/js/main.14f57b3c.chunk.js",
-    "main.js.map": "/training-attendance/static/js/main.14f57b3c.chunk.js.map",
+    "main.js": "/training-attendance/static/js/main.55a8c54c.chunk.js",
+    "main.js.map": "/training-attendance/static/js/main.55a8c54c.chunk.js.map",
     "runtime-main.js": "/training-attendance/static/js/runtime-main.c66807f0.js",
     "runtime-main.js.map": "/training-attendance/static/js/runtime-main.c66807f0.js.map",
     "static/css/2.b6e96c32.chunk.css": "/training-attendance/static/css/2.b6e96c32.chunk.css",
     "static/js/2.0af264b0.chunk.js": "/training-attendance/static/js/2.0af264b0.chunk.js",
     "static/js/2.0af264b0.chunk.js.map": "/training-attendance/static/js/2.0af264b0.chunk.js.map",
     "index.html": "/training-attendance/index.html",
-    "precache-manifest.dfa6d360ad79c1a176e4180009c2148a.js": "/training-attendance/precache-manifest.dfa6d360ad79c1a176e4180009c2148a.js",
+    "precache-manifest.216052e30ebea9f8455cde37e76e4277.js": "/training-attendance/precache-manifest.216052e30ebea9f8455cde37e76e4277.js",
     "service-worker.js": "/training-attendance/service-worker.js",
     "static/css/2.b6e96c32.chunk.css.map": "/training-attendance/static/css/2.b6e96c32.chunk.css.map",
     "static/css/main.e8b6ea19.chunk.css.map": "/training-attendance/static/css/main.e8b6ea19.chunk.css.map",
@@ -29,6 +29,6 @@
     "static/css/2.b6e96c32.chunk.css",
     "static/js/2.0af264b0.chunk.js",
     "static/css/main.e8b6ea19.chunk.css",
-    "static/js/main.14f57b3c.chunk.js"
+    "static/js/main.55a8c54c.chunk.js"
   ]
 }
