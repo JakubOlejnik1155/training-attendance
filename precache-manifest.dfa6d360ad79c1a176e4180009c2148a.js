@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "41541093a9fb9e9c306c00293cc05ee8",
+    "revision": "bf544a770039adaaa772934ee3fba7c7",
     "url": "/training-attendance/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/training-attendance/static/css/2.b6e96c32.chunk.css"
   },
   {
-    "revision": "b96614e029d5c646a9fd",
+    "revision": "16abb670a5a283869307",
     "url": "/training-attendance/static/css/main.e8b6ea19.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/training-attendance/static/js/2.0af264b0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b96614e029d5c646a9fd",
-    "url": "/training-attendance/static/js/main.643d0ff7.chunk.js"
+    "revision": "16abb670a5a283869307",
+    "url": "/training-attendance/static/js/main.14f57b3c.chunk.js"
   },
   {
     "revision": "f6ac8106a8d1df2337f3",
