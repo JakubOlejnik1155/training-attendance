@@ -11,6 +11,7 @@ import Competitors from './Routes/Components/Competitors';
 import CompetitorData from './Routes/CompetitorData';
 import Calendar from './Routes/Calendar'
 import Trainings from './Routes/Trainings';
+import { theme } from '../static/theme';
 
 const App = () => {
 
@@ -29,7 +30,20 @@ const App = () => {
   )
   return (
     <>
-      {routes}
+    {navigator.onLine ? routes : (
+      <div style={{
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '20px',
+        backgroundColor: `${theme.dark}`,
+        color: `${theme.blue}`,
+      }}>
+        <h4>Connect to internet to use App</h4>
+      </div>
+    )}
     </>
   );
 }
