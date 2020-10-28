@@ -32,8 +32,16 @@ interface StateProps {
 }
 
 const Calendar = () => {
+    return (
+        <NavTemplate>
+            <CalendarObject />
+        </NavTemplate>
+    )
+}
 
-    const {store} = React.useContext(Store);
+export const CalendarObject = () =>{
+
+    const { store } = React.useContext(Store);
     const [show, setShow] = React.useState(false);
     const [state, setState] = React.useState<StateProps>({
         train: [],
@@ -46,7 +54,7 @@ const Calendar = () => {
         const object = state.train.find((t: { title: any; date: any; }) => {
             return t.title === info.event.title && new Date(t.date.seconds * 1000).toLocaleDateString() === date;
         });
-        setState({...state, obj: object});
+        setState({ ...state, obj: object });
         setShow(true);
     }
 
@@ -60,24 +68,22 @@ const Calendar = () => {
                         const dateArray = new Date(element.date.seconds * 1000).toLocaleDateString("en-US").split('/');
                         array.push({
                             title: element.title,
-                            date: dateArray[2]+'-'+dateArray[0]+'-'+dateArray[1],
+                            date: dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1],
                             competitors: element.competitors
                         })
                     });
-                    setState({...state, train: doc.data().trainings, events: array})
+                    setState({ ...state, train: doc.data().trainings, events: array })
                 }
             });
         }
         getTrainings();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-
-    return (
-        <NavTemplate>
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    return(
+        <>
             <Container>
                 <FullCalendar
-                    plugins={[ dayGridPlugin, interactionPlugin  ]}
+                    plugins={[dayGridPlugin, interactionPlugin]}
                     initialView="dayGridMonth"
                     events={state.events}
                     height="100%"
@@ -96,25 +102,23 @@ const Calendar = () => {
             >
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        group: <span style={{color: 'orangered'}}>{state.obj && state.obj.title}</span> { ", " }
+                        group: <span style={{ color: 'orangered' }}>{state.obj && state.obj.title}</span> {", "}
                         date: <span style={{ color: 'orangered' }}>{state.obj && new Date(state.obj.date.seconds * 1000).toLocaleDateString()}</span>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4 style={{fontStyle: 'italic', color: `${theme.blue}`}}>Attendance List:</h4>
+                    <h4 style={{ fontStyle: 'italic', color: `${theme.blue}` }}>Attendance List:</h4>
                     {state.obj && state.obj.competitors.map((comp: { name: string; surname: string; }) => (
-                        <p style={{textAlign: `center`}} key={comp.name + comp.surname}><strong>{comp.name + " "}</strong> <i>{comp.surname}</i></p>
+                        <p style={{ textAlign: `center` }} key={comp.name + comp.surname}><strong>{comp.name + " "}</strong> <i>{comp.surname}</i></p>
                     ))}
-                 </Modal.Body>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         OK
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
-        </NavTemplate>
+        </>
     )
 }
 

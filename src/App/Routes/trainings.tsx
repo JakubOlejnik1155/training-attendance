@@ -39,8 +39,15 @@ interface StateProps{
 }
 
 const Trainings = () => {
+ return(
+     <NavTemplate>
+         <FormTraining />
+     </NavTemplate>
+ )
+}
+export const FormTraining = () =>{
     const history = useHistory();
-    const {store, setStore} = React.useContext(Store);
+    const { store, setStore } = React.useContext(Store);
     const [state, setState] = React.useState<StateProps>({
         group: '',
         groups: [],
@@ -48,8 +55,8 @@ const Trainings = () => {
         success: ''
     });
     const onChangeHandler = (event: { target: { id: string; value: any; }; }) => {
-        if(event.target.id === 'group')
-            setState({...state, group: event.target.value})
+        if (event.target.id === 'group')
+            setState({ ...state, group: event.target.value })
     }
     const AddTrainingHanler = async () => {
         const arrayOfInputs = document.querySelectorAll('input:checked');
@@ -72,9 +79,9 @@ const Trainings = () => {
             let afterStartArray = [];
             let counter = 0;
             newArray.forEach((training: { date: number; title: string; competitors: any[]; }) => {
-                if(training.date > comp.startDate && training.title === comp.group)
+                if (training.date > comp.startDate && training.title === comp.group)
                     afterStartArray.push(training);
-                if(training.competitors.find((c: { name: any; surname: any; }) => c.name === comp.name && c.surname === comp.surname ))
+                if (training.competitors.find((c: { name: any; surname: any; }) => c.name === comp.name && c.surname === comp.surname))
                     counter++;
             });
             const percentage = counter / afterStartArray.length * 100;
@@ -87,7 +94,7 @@ const Trainings = () => {
         let newAttendancesCompetitorsArray: { name: any; surname: any; attendance: number; }[] = [];
         state.competitors.forEach((comp: { name: any; surname: any; attendance: number; }) => {
             newCompetitorsArray.forEach(newAtt => {
-                if(newAtt.name === comp.name && newAtt.surname === comp.surname)
+                if (newAtt.name === comp.name && newAtt.surname === comp.surname)
                     comp.attendance = newAtt.precent;
             })
             newAttendancesCompetitorsArray.push(comp);
@@ -99,19 +106,19 @@ const Trainings = () => {
             trainings: newArray,
             competitors: newAttendancesCompetitorsArray
         })
-        setStore({...store, arrays: {...store.arrays, trainings: newArray, competitors: newAttendancesCompetitorsArray}})
-        setState({...state, success: 'Trainig have been added'})
-        setTimeout(()=>{
+        setStore({ ...store, arrays: { ...store.arrays, trainings: newArray, competitors: newAttendancesCompetitorsArray } })
+        setState({ ...state, success: 'Trainig have been added' })
+        setTimeout(() => {
             history.push('/dashboard')
         }, 3000)
     }
 
-    React.useEffect(()=>{
-        const getUser = async() => {
+    React.useEffect(() => {
+        const getUser = async () => {
             const response = await firebase.firestore().collection('users').get();
             let user: any;
             response.forEach(doc => {
-                if(doc.data().uid === store.userData.uid) {
+                if (doc.data().uid === store.userData.uid) {
                     user = doc.data()
                 }
             });
@@ -123,47 +130,44 @@ const Trainings = () => {
                 const flag = array.find(e => e === element.group)
                 !flag && array.push(element.group);
             })
-            setState({...state, groups: array, competitors: user.competitors, group: array[0]})
+            setState({ ...state, groups: array, competitors: user.competitors, group: array[0] })
         })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
-
- return(
-     <NavTemplate>
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    return (
         <Container>
             <H1>New Training:</H1>
             <Label>
                 Date:
-                <strong style={{color: `orangered`, marginLeft: '5px'}}>{new Date().toLocaleDateString()}</strong>
+                <strong style={{ color: `orangered`, marginLeft: '5px' }}>{new Date().toLocaleDateString()}</strong>
             </Label>
             <Label>
                 Group:
                     <FormControl
-                        id="group"
-                        as="select"
-                        value={state.group}
-                        onChange={onChangeHandler}
-                        aria-label="title"
-                        aria-describedby="title"
-                        className="w-50 d-inline ml-3"
-                    >
-                        {state.groups.map((group: {} | null | undefined) => <option key={`"${group}"`}>{group}</option>)}
-                    </FormControl>
+                    id="group"
+                    as="select"
+                    value={state.group}
+                    onChange={onChangeHandler}
+                    aria-label="title"
+                    aria-describedby="title"
+                    className="w-50 d-inline ml-3"
+                >
+                    {state.groups.map((group: {} | null | undefined) => <option key={`"${group}"`}>{group}</option>)}
+                </FormControl>
             </Label>
             <Label>
                 Competitors:</Label>
-                <Form>
-                    {state.competitors.filter((e: { group: string; }) => e.group === state.group).map((element: { name: string; surname: string; }) => (
-                        <div className="checkboxContainer" key={element.name + ' '+ element.surname} >
-                            <Form.Check id={ element.name + ' '+ element.surname} type="checkbox" className="checkbox"/>
-                            <label className="labelForCompetitor" htmlFor={ element.name + ' '+ element.surname}>{ element.name + ' '+ element.surname}</label>
-                        </div>
-                    ))}
-                </Form>
+            <Form>
+                {state.competitors.filter((e: { group: string; }) => e.group === state.group).map((element: { name: string; surname: string; }) => (
+                    <div className="checkboxContainer" key={element.name + ' ' + element.surname} >
+                        <Form.Check id={element.name + ' ' + element.surname} type="checkbox" className="checkbox" />
+                        <label className="labelForCompetitor" htmlFor={element.name + ' ' + element.surname}>{element.name + ' ' + element.surname}</label>
+                    </div>
+                ))}
+            </Form>
 
             {state.success && (
-                <p style={{color: 'greenyellow', fontSize: '18px', textAlign: 'center'}}>{state.success}</p>
+                <p style={{ color: 'greenyellow', fontSize: '18px', textAlign: 'center' }}>{state.success}</p>
             )}
             <div className="w-100 d-flex justify-content-center align-items-center mt-4">
                 <Button variant="primary" onClick={AddTrainingHanler} disabled={state.success ? true : false}>
@@ -171,8 +175,7 @@ const Trainings = () => {
                 </Button>
             </div>
         </Container>
-     </NavTemplate>
- )
+    )
 }
 
 
