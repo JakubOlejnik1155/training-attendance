@@ -2,11 +2,13 @@ import * as React from 'react';
 import styled from  'styled-components';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid';
-import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClick
+import interactionPlugin from "@fullcalendar/interaction";
+import { Modal, Button } from 'react-bootstrap';
 
 import NavTemplate from './Components/NavTemplate';
 import {theme} from '../../static/theme';
-import { Modal, Button } from 'react-bootstrap';
+import firebase from '../../static/firebase';
+import { Store } from '../Store';
 
 
 const Container = styled.div`
@@ -23,20 +25,53 @@ const Container = styled.div`
     margin: 50px auto;;
 `;
 
-
+interface StateProps {
+    train: any,
+    events: any,
+    obj: any
+}
 
 const Calendar = () => {
 
+    const {store} = React.useContext(Store);
     const [show, setShow] = React.useState(false);
-
+    const [state, setState] = React.useState<StateProps>({
+        train: [],
+        events: [],
+        obj: null
+    });
     const handleClose = () => setShow(false);
-    //TODO: check what to do with it
-    const handleDateClick = (arg: { dateStr: any; }) => {
-        
-    }
-    const eventClickHandler = (event: any) => {
+    const eventClickHandler = (info: any) => {
+        const date = new Date(info.event._instance.range.start).toLocaleDateString();
+        const object = state.train.find((t: { title: any; date: any; }) => {
+            return t.title === info.event.title && new Date(t.date.seconds * 1000).toLocaleDateString() === date;
+        });
+        setState({...state, obj: object});
         setShow(true);
     }
+
+    React.useEffect(() => {
+        const getTrainings = async () => {
+            const response = await firebase.firestore().collection('users').get();
+            let array: { title: any; date: string; competitors: any; }[] = [];
+            response.forEach(doc => {
+                if (doc.data().uid === store.userData.uid) {
+                    doc.data().trainings.forEach((element: { date: { seconds: number; }; title: any; competitors: any; }) => {
+                        const dateArray = new Date(element.date.seconds * 1000).toLocaleDateString("en-US").split('/');
+                        array.push({
+                            title: element.title,
+                            date: dateArray[2]+'-'+dateArray[0]+'-'+dateArray[1],
+                            competitors: element.competitors
+                        })
+                    });
+                    setState({...state, train: doc.data().trainings, events: array})
+                }
+            });
+        }
+        getTrainings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
 
     return (
         <NavTemplate>
@@ -44,13 +79,7 @@ const Calendar = () => {
                 <FullCalendar
                     plugins={[ dayGridPlugin, interactionPlugin  ]}
                     initialView="dayGridMonth"
-                    events={[
-                        // tmp events 
-                        //TODO: change events to fetched events from db or store
-                        { title: 'event 1', date: '2020-10-28' },
-                        { title: 'event 2', date: '2020-11-01' }
-                    ]}
-                    dateClick={handleDateClick}
+                    events={state.events}
                     height="100%"
                     eventColor="orangered"
                     eventClassNames="event"
@@ -58,7 +87,6 @@ const Calendar = () => {
                     eventClick={eventClickHandler}
                 />
             </Container>
-            
 
             <Modal
                 show={show}
@@ -67,10 +95,16 @@ const Calendar = () => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Attendance list</Modal.Title>
+                    <Modal.Title>
+                        group: <span style={{color: 'orangered'}}>{state.obj && state.obj.title}</span> { ", " }
+                        date: <span style={{ color: 'orangered' }}>{state.obj && new Date(state.obj.date.seconds * 1000).toLocaleDateString()}</span>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    tutaj będzie lista obecności
+                    <h4 style={{fontStyle: 'italic', color: `${theme.blue}`}}>Attendance List:</h4>
+                    {state.obj && state.obj.competitors.map((comp: { name: string; surname: string; }) => (
+                        <p style={{textAlign: `center`}} key={comp.name + comp.surname}><strong>{comp.name + " "}</strong> <i>{comp.surname}</i></p>
+                    ))}
                  </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

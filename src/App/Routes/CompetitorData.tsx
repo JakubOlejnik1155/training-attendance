@@ -81,7 +81,7 @@ const CompetitorData = () => {
 
     React.useEffect(()=>{
         const getUser = async() => {
-            const userArray = comp.split('-'); 
+            const userArray = comp.split('-');
             const response = await firebase.firestore().collection('users').get();
             response.forEach(doc => {
                 if(doc.data().uid === store.userData.uid) {
@@ -96,15 +96,15 @@ const CompetitorData = () => {
 
     const EditHandler = () => setState({...state, isEditionEnabled: true})
     const onChangeHandler = (e: any) => {
-        if(e.target.id === "email") 
+        if(e.target.id === "email")
             setState({...state, user:{...state.user, email: e.target.value}})
-        if(e.target.id === "date") 
+        if(e.target.id === "date")
             setState({...state, user:{...state.user, date: e.target.value}})
-        if(e.target.id === "group") 
+        if(e.target.id === "group")
             setState({...state, user:{...state.user, group: e.target.value}})
-        if(e.target.id === "phone") 
+        if(e.target.id === "phone")
             setState({...state, user:{...state.user, phoneDad: e.target.value}})
-        if(e.target.id === "phone2") 
+        if(e.target.id === "phone2")
             setState({...state, user:{...state.user, phoneMom: e.target.value}})
     }
     const confirmEditHalder = async () => {
@@ -122,10 +122,10 @@ const CompetitorData = () => {
         <NavTemplate>
             <Container>
                 <Header>{state.user.name + " " + state.user.surname}</Header>
-                {!state.isEditionEnabled && <Button variant='primary' className='position-absolute' style={{top: 10, right: 10}} onClick={EditHandler}>edit</Button> }
-        
+                {!state.isEditionEnabled && <Button variant='primary' size="sm" className='position-absolute' style={{top: 10, right: 10}} onClick={EditHandler}>edit</Button> }
+
                 <Label>
-                    Group: 
+                    Group:
                     {!state.isEditionEnabled ?  <strong style={{color: `orangered`, marginLeft: '5px'}}>{state.user.group}</strong> : (
                           <FormControl
                             id="group"
@@ -138,7 +138,7 @@ const CompetitorData = () => {
                     )}
                 </Label>
                 <Label>
-                    Ability date: 
+                    Ability date:
                     {!state.isEditionEnabled ?  <strong style={{color: `orangered`, marginLeft: '5px'}}>{state.user.date ? new Date(state.user.date).toLocaleString().split(',')[0] : ""}</strong> : (
                         <FormControl
                             id="date"
@@ -151,13 +151,13 @@ const CompetitorData = () => {
                     )}
                 </Label>
                 <Label>
-                    Attendance: 
-                    <strong style={{color: `orangered`, marginLeft: '5px'}}>{state.user.attendance + "%"}</strong>
+                    Attendance:
+                    <strong style={{color: `orangered`, marginLeft: '5px'}}>{Math.floor(state.user.attendance) + "%"}</strong>
                 </Label>
-                <ProgressBar animated now={state.user.attendance} label={state.user.attendance + "%"}/>
+                <ProgressBar animated now={Math.floor(state.user.attendance)} label={Math.floor(state.user.attendance) + "%"}/>
                 <Contact>Contact</Contact>
                 <Label>
-                    Email: 
+                    Email:
                     {!state.isEditionEnabled ? <strong style={{color: `orangered`, marginLeft: '5px'}}>{state.user.email}</strong> : (
                         <FormControl
                             id="email"
@@ -170,7 +170,7 @@ const CompetitorData = () => {
                     )}
                 </Label>
                 <Label>
-                    Phone: 
+                    Phone:
                     {!state.isEditionEnabled ? <strong style={{color: `orangered`, marginLeft: '5px'}}>{state.user.phoneDad}</strong> : (
                         <FormControl
                             id="phone"
@@ -183,7 +183,7 @@ const CompetitorData = () => {
                     )}
                 </Label>
                 <Label>
-                    Second Phone: 
+                    Second Phone:
                     {!state.isEditionEnabled ? <strong style={{color: `orangered`, marginLeft: '5px'}}>{state.user.phoneMom}</strong> : (
                         <FormControl
                         id="phone2"
@@ -196,7 +196,7 @@ const CompetitorData = () => {
                     )}
                 </Label>
 
-               {state.isEditionEnabled && <Button variant='success' className='mr-auto ml-auto d-block mt-3' onClick={confirmEditHalder}> Confirm </Button>} 
+               {state.isEditionEnabled && <Button variant='success' className='mr-auto ml-auto d-block mt-3' onClick={confirmEditHalder}> Confirm </Button>}
 
             </Container>
         </NavTemplate>

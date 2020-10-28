@@ -92,7 +92,7 @@ const Trainings = () => {
             })
             newAttendancesCompetitorsArray.push(comp);
         })
-        
+
 
         await firebase.firestore().collection('users').doc(store.arrays.docId).set({
             uid: store.userData.uid,
@@ -134,11 +134,11 @@ const Trainings = () => {
         <Container>
             <H1>New Training:</H1>
             <Label>
-                Date: 
-                <strong style={{color: `orangered`, marginLeft: '5px'}}>{new Date().toLocaleDateString()}</strong> 
+                Date:
+                <strong style={{color: `orangered`, marginLeft: '5px'}}>{new Date().toLocaleDateString()}</strong>
             </Label>
             <Label>
-                Group: 
+                Group:
                     <FormControl
                         id="group"
                         as="select"
@@ -161,7 +161,7 @@ const Trainings = () => {
                         </div>
                     ))}
                 </Form>
-            
+
             {state.success && (
                 <p style={{color: 'greenyellow', fontSize: '18px', textAlign: 'center'}}>{state.success}</p>
             )}
