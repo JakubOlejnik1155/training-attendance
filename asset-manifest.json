@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/training-attendance/static/css/main.e8b6ea19.chunk.css",
+    "main.js": "/training-attendance/static/js/main.643d0ff7.chunk.js",
+    "main.js.map": "/training-attendance/static/js/main.643d0ff7.chunk.js.map",
+    "runtime-main.js": "/training-attendance/static/js/runtime-main.c66807f0.js",
+    "runtime-main.js.map": "/training-attendance/static/js/runtime-main.c66807f0.js.map",
+    "static/css/2.b6e96c32.chunk.css": "/training-attendance/static/css/2.b6e96c32.chunk.css",
+    "static/js/2.0af264b0.chunk.js": "/training-attendance/static/js/2.0af264b0.chunk.js",
+    "static/js/2.0af264b0.chunk.js.map": "/training-attendance/static/js/2.0af264b0.chunk.js.map",
+    "index.html": "/training-attendance/index.html",
+    "precache-manifest.664c4602cf28b83585757bf4ea2fbf22.js": "/training-attendance/precache-manifest.664c4602cf28b83585757bf4ea2fbf22.js",
+    "service-worker.js": "/training-attendance/service-worker.js",
+    "static/css/2.b6e96c32.chunk.css.map": "/training-attendance/static/css/2.b6e96c32.chunk.css.map",
+    "static/css/main.e8b6ea19.chunk.css.map": "/training-attendance/static/css/main.e8b6ea19.chunk.css.map",
+    "static/js/2.0af264b0.chunk.js.LICENSE.txt": "/training-attendance/static/js/2.0af264b0.chunk.js.LICENSE.txt",
+    "static/media/delete.svg": "/training-attendance/static/media/delete.a9031342.svg",
+    "static/media/fitness.jpg": "/training-attendance/static/media/fitness.1306dab7.jpg",
+    "static/media/menu.svg": "/training-attendance/static/media/menu.e6c1b22e.svg",
+    "static/media/rowl.jpg": "/training-attendance/static/media/rowl.b97681d4.jpg",
+    "static/media/run.jpg": "/training-attendance/static/media/run.458890a6.jpg",
+    "static/media/sailing.jpg": "/training-attendance/static/media/sailing.4202a0df.jpg",
+    "static/media/surf.jpg": "/training-attendance/static/media/surf.a24d637b.jpg",
+    "static/media/tenis.jpg": "/training-attendance/static/media/tenis.cd8e9d31.jpg",
+    "static/media/yes.svg": "/training-attendance/static/media/yes.dcb8a836.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c66807f0.js",
+    "static/css/2.b6e96c32.chunk.css",
+    "static/js/2.0af264b0.chunk.js",
+    "static/css/main.e8b6ea19.chunk.css",
+    "static/js/main.643d0ff7.chunk.js"
+  ]
+}
